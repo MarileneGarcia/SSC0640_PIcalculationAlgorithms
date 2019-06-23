@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <gmp.h>
 
-#define numero_interacoes 10
+#define numero_iteracoes 1000000000
 
 /* Funcoes usadas */
 void borwein();
@@ -33,37 +33,37 @@ void borwein(){
     mpf_init2 (aux_pi,10000000);
     
     mpf_init2 (pi,10000000);
-    mpf_init_set_ui(pi, 0);
+    mpf_set_ui(pi, 0);
 
     /* Iteracoes do algoritmo */
-    for(int k = 0; k < numero_interacoes; k ++){
+    for(int k = 0; k < numero_iteracoes; k ++){
         /*Desenvolvimento do algoritmo*/
 
         /* aux1 = 1/(16^k)    */
-        mpf_init_set_ui(aux1, 16);
+        mpf_set_ui(aux1, 16);
         mpf_pow_ui(aux1, aux1, k);
         mpf_ui_div(aux1, 1, aux1);
 
        /*  aux2 = 4/(8k + 1)    */
-        mpf_init_set_ui(aux2, 8);
+        mpf_set_ui(aux2, 8);
         mpf_mul_ui(aux2, aux2, k);
 		mpf_add_ui(aux2, aux2, 1);
         mpf_ui_div(aux2, 4, aux2);
 
         /* aux3 = 2/(8k + 4)    */
-        mpf_init_set_ui(aux3, 8);
+        mpf_set_ui(aux3, 8);
         mpf_mul_ui(aux3, aux3, k);
 		mpf_add_ui(aux3, aux3, 4);
         mpf_ui_div(aux3, 2, aux3);
 
        /* aux4 = 1/(8k + 5)    */
-        mpf_init_set_ui(aux4, 8);
+        mpf_set_ui(aux4, 8);
         mpf_mul_ui(aux4, aux4, k);
 		mpf_add_ui(aux4, aux4, 5);
         mpf_ui_div(aux4, 1, aux4);
 
         /* aux5 = 1/(8k + 6)    */
-        mpf_init_set_ui(aux5, 8);
+        mpf_set_ui(aux5, 8);
         mpf_mul_ui(aux5, aux5, k);
 		mpf_add_ui(aux5, aux5, 6);
         mpf_ui_div(aux5, 1, aux5);
@@ -77,10 +77,10 @@ void borwein(){
         /* Calculo de pi
         pi = pi + aux_pi */
         mpf_add(pi, pi, aux_pi);
-        mpf_out_str (stdout, 10, 6, pi);
-        printf("\n");
-
     }
+
+    mpf_out_str (stdout, 10, 6, pi);
+    printf("\n");
 
     /* Desalocar a memória dos big-numbers */
     mpf_clear (aux1);

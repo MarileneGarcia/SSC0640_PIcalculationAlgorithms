@@ -9,7 +9,7 @@
 #include <stdlib.h>
 #include <gmp.h>
 
-#define numero_interacoes 1000000000
+#define numero_iteracoes 1000000000
 
 /* Funcoes usadas */
 void gaussLagendre();
@@ -52,7 +52,7 @@ void gaussLagendre(){
     mpf_set_ui(pn,1);
 
     /* Iteracoes do algoritmo */
-    for(int count = 0; count < numero_interacoes; count ++){
+    for(int count = 0; count < numero_iteracoes; count ++){
         /*Desenvolvimento do algoritmo*/
 
         /* an_aux = (an + bn)/2    */
@@ -73,20 +73,18 @@ void gaussLagendre(){
         mpf_mul_ui(pn, pn, 2);
 
         /*  an = aux    */   
-        mpf_set(an,an_aux);               
-
-        /*Calculo do valor de pi*/
-        
-        /*  pi = pow((an + bn), 2) / (4.0*tn)   */
-        mpf_add(pi, an, bn);
-        mpf_pow_ui(pi, pi, 2);
-        mpf_mul_ui(pi_aux, tn, 4);
-        mpf_div(pi, pi, pi_aux);  
-
-        mpf_out_str (stdout, 10, 6, pi);
-        printf("\n");
-
+        mpf_set(an,an_aux);              
     }
+
+    /*Calculo do valor de pi*/
+    /*  pi = pow((an + bn), 2) / (4.0*tn)   */
+    mpf_add(pi, an, bn);
+    mpf_pow_ui(pi, pi, 2);
+    mpf_mul_ui(pi_aux, tn, 4);
+    mpf_div(pi, pi, pi_aux);  
+
+    mpf_out_str (stdout, 10, 6, pi);
+    printf("\n");
 
     /* Desalocar a memória dos big-numbers */
     mpf_clear (an);

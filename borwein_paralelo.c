@@ -10,7 +10,7 @@
 #include <gmp.h>
 #include <pthread.h>
 
-#define numero_interacoes 1000
+#define numero_iteracoes 1000
 
 /* declaracao das variaveis globais */
 mpf_t aux1, aux2, aux3, aux4, aux5, aux_pi, pi;
@@ -33,7 +33,7 @@ int main(){
 }
 
 void borwein(){
-    /*inicializacao das variaveis com precisao de 512 bits*/
+    /*inicializacao das variaveis*/
    mpf_init2 (aux1,10000000);           
     mpf_init2 (aux2,10000000);
     mpf_init2 (aux3,10000000);           
@@ -42,17 +42,17 @@ void borwein(){
     mpf_init2 (aux_pi,10000000);
     
     mpf_init2 (pi,10000000);
-    mpf_init_set_ui(pi, 0);
+    mpf_set_ui(pi, 0);
 
     /* ID das threads */
-    pthread_t id_determinar_aux1[numero_interacoes];
-    pthread_t id_determinar_aux2[numero_interacoes];
-    pthread_t id_determinar_aux3[numero_interacoes];
-    pthread_t id_determinar_aux4[numero_interacoes];
-    pthread_t id_determinar_aux5[numero_interacoes];
+    pthread_t id_determinar_aux1[numero_iteracoes];
+    pthread_t id_determinar_aux2[numero_iteracoes];
+    pthread_t id_determinar_aux3[numero_iteracoes];
+    pthread_t id_determinar_aux4[numero_iteracoes];
+    pthread_t id_determinar_aux5[numero_iteracoes];
 
     /* Iteracoes do algoritmo */
-    for(k = 0; k < numero_interacoes; k ++){
+    for(k = 0; k < numero_iteracoes; k ++){
         /*Desenvolvimento do algoritmo*/
 
         /* Criar as threads para determinar aux1, aux2, aux3, aux4 e aux5 */
@@ -98,7 +98,7 @@ void borwein(){
 
 void* determinar_aux1(){
    /* aux1 = 1/(16^k)    */
-    mpf_init_set_ui(aux1, 16);
+    mpf_set_ui(aux1, 16);
     mpf_pow_ui(aux1, aux1, k);
     mpf_ui_div(aux1, 1, aux1);
 
@@ -107,7 +107,7 @@ void* determinar_aux1(){
 
 void* determinar_aux2(){
     /*  aux2 = 4/(8k + 1)    */
-    mpf_init_set_ui(aux2, 8);
+    mpf_set_ui(aux2, 8);
     mpf_mul_ui(aux2, aux2, k);
     mpf_add_ui(aux2, aux2, 1);
     mpf_ui_div(aux2, 4, aux2);
@@ -117,7 +117,7 @@ void* determinar_aux2(){
 
 void* determinar_aux3(){
     /* aux3 = 2/(8k + 4)    */
-    mpf_init_set_ui(aux3, 8);
+    mpf_set_ui(aux3, 8);
     mpf_mul_ui(aux3, aux3, k);
     mpf_add_ui(aux3, aux3, 4);
     mpf_ui_div(aux3, 2, aux3);
@@ -127,7 +127,7 @@ void* determinar_aux3(){
 
 void* determinar_aux4(){
     /* aux4 = 1/(8k + 5)    */
-    mpf_init_set_ui(aux4, 8);
+    mpf_set_ui(aux4, 8);
     mpf_mul_ui(aux4, aux4, k);
     mpf_add_ui(aux4, aux4, 5);
     mpf_ui_div(aux4, 1, aux4);
@@ -137,7 +137,7 @@ void* determinar_aux4(){
 
 void* determinar_aux5(){
     /* aux5 = 1/(8k + 6)    */
-    mpf_init_set_ui(aux5, 8);
+    mpf_set_ui(aux5, 8);
     mpf_mul_ui(aux5, aux5, k);
     mpf_add_ui(aux5, aux5, 6);
     mpf_ui_div(aux5, 1, aux5);

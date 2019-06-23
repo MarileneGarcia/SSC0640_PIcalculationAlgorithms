@@ -10,7 +10,7 @@
 #include <gmp.h>
 #include <pthread.h>
 
-#define numero_interacoes 1000
+#define numero_iteracoes 1000000000
 
 /* declaracao das variaveis globais */
 mpf_t an, an_aux, bn, tn, tn_aux, pn, pi_aux, pi;
@@ -57,11 +57,11 @@ void gaussLagendre(){
     mpf_set_ui(pn,1);
 
     /* ID das threads */
-    pthread_t id_determinar_an[numero_interacoes];
-    pthread_t id_determinar_bn[numero_interacoes];
+    pthread_t id_determinar_an[numero_iteracoes];
+    pthread_t id_determinar_bn[numero_iteracoes];
 
     /* Iteracoes do algoritmo */
-    for(int count = 0; count < numero_interacoes; count ++){
+    for(int count = 0; count < numero_iteracoes; count ++){
         /*Desenvolvimento do algoritmo*/
 
         /* Criar as threads para determinar an e bn */
@@ -78,24 +78,21 @@ void gaussLagendre(){
         mpf_mul(tn_aux, pn, tn_aux);
         mpf_sub(tn, tn, tn_aux);
 
+        /* Atribuir o valor corrente da an */
         mpf_set(an,an_aux);
 
         /* Determinar pn */
         mpf_mul_ui(pn, pn, 2);
-
-         mpf_add(pi, an, bn);
-        mpf_pow_ui(pi, pi, 2);
-        mpf_mul_ui(pi_aux, tn, 4);
-        mpf_div(pi, pi, pi_aux);
-
-
-        mpf_out_str (stdout, 10, 6, pi);
-        printf("\n");
     }
 
     /* Determinar PI */
-   
+    mpf_add(pi, an, bn);
+    mpf_pow_ui(pi, pi, 2);
+    mpf_mul_ui(pi_aux, tn, 4);
+    mpf_div(pi, pi, pi_aux);
 
+    mpf_out_str (stdout, 10, 6, pi);
+    printf("\n");
 
     /* Desalocar a memória dos big-numbers */
     mpf_clear (an);
