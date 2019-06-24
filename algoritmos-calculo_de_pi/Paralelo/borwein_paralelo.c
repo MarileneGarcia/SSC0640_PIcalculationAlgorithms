@@ -10,7 +10,7 @@
 #include <gmp.h>
 #include <pthread.h>
 
-#define numero_iteracoes 1000
+#define numero_iteracoes 1000000000
 
 /* declaracao das variaveis globais */
 mpf_t aux1, aux2, aux3, aux4, aux5, aux_pi, pi;

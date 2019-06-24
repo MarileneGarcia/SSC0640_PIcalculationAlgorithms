@@ -37,7 +37,7 @@ int main(){
     /* Criar as threads */
     int count = 0;
     for(count = 0; count < numero_threads; count ++){
-        pthread_create (&id_threads[count], NULL, monteCarlo, &count);        
+        pthread_create (&id_threads[count], NULL, monteCarlo, (void*) count);        
     }
 
     /* Esperar a conclusao de todas as threads*/
@@ -66,7 +66,7 @@ int main(){
 
 void* monteCarlo(void* count){
     double x,y;
-    int numero_thread = *((int *)count);
+    int numero_thread = count;
     mpf_init2 (pontos_circunferencia[numero_thread],10000000);
     for(int count = 0; count < numero_iteracoes; count ++){
         /*Atribuir uma coordenada aleatoria ao x e ao y

@@ -1,9 +1,11 @@
-/* Esse gerador de numeros aleatorios gera numeros que seguem uma distribuicao normal com media 0 e desvio padrao 1: N(0,1). */
+/* Funcoes usadas para o algoritmo Black Scholes*/
+void blackScholes();
 
-#include <stdlib.h>
-#include <stdio.h>
-#include <math.h>
-#include <sys/time.h>
+/* Usando os codigos de gerar numeros aleatorios fornecido pelo professor
+Para gerar um numero aleatorio e possivel tanto a funcao (geradorNumerosAleatorios)
+quanto a funcao (boxMullerRandom) */
+const unsigned int A = 1664525, C = 1013904223;
+unsigned int geradorNumerosAleatorios(unsigned int x);
 
 struct BoxMullerState
 {
@@ -11,6 +13,15 @@ struct BoxMullerState
         int useLast;
         struct drand48_data random;
 };
+
+/* Funcoes para geracao de numeros aleatorios */
+
+/* Gerador congruencial linear */
+unsigned int geradorNumerosAleatorios(unsigned int x){
+    return x*A+C;
+}
+
+/* Gerador de numeros aleatorios gera numeros que seguem uma distribuicao normal com media 0 e desvio padrao 1: N(0,1).*/
 
 void initBoxMullerState(struct BoxMullerState* state)
 {
@@ -51,20 +62,3 @@ double boxMullerRandom(struct BoxMullerState* state)
 
         return state->y1;
 }
-
-/* Exemplo de uso. */
-int main()
-{
-	/* OBS: cada thread deve possuir uma variavel do tipo BoxMullerState. */
-	struct BoxMullerState state;
-	
-	/* O init deve ser chamado! */
-	initBoxMullerState(&state);
-	
-	int i;
-	for (i = 0; i < 10; ++i)
-		printf("%lf\n", boxMullerRandom(&state));
-	
-	return 0;
-}
-
