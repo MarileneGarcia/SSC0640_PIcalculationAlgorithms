@@ -1,2 +1,1 @@
-# Trabalho_SO
-Utilizacao de threads
+# Code to Operacional Systems course
